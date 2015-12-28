@@ -1,0 +1,45 @@
+=begin explain
+Various FeedHelper:: Constants are in App ... /feed_helper.rb, as are feed_sdescriotion and rss url for image methods
+=end
+
+xml.instruct!
+xml.rss( FeedHelpwer::RSS_OPTIONS ) do
+
+xml.channel do
+
+	xml.title 			FeedHelper::TITLE
+	xml.language 		FeedHelper::LANGUAGE
+	xml.link 			rss_url_for_image( nil)
+	xml.pubDate 		Time.now
+	xml.description 	feed_description()
+
+
+
+xml.image do
+
+	xml.title 			FeedHelper::TITLE
+	xml.link 			rss_url_for_image( nil)
+	xml.url				FeedHelper::ICON[:url]
+	xml.width			FeedHelper::ICON[:width]
+	xml.height			FeedHelper::ICON[:height]
+	xml.description		feed_description()
+
+end
+	
+
+@photos.each do | image |
+
+	xml.title 			image.title
+	xml.link 			rss_url_for_image( image)
+	xml.description		h( image_description )
+	xml.pubDate 		Time.now
+	xml.guid			rss_url_for_image( image)
+	xml.author			FeedHelper::AUTHOR
+	# image.photographer could also be the author
+
+	end
+end
+
+end
+
+end
